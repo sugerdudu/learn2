@@ -1,0 +1,24 @@
+server:
+  port: 9192
+
+
+spring:
+  redis:
+    database: 0
+    timeout: 3000
+#    password: null
+    password: 121212
+#    sentinel:    #哨兵模式
+#      master: oamaster #主服务器所在集群名称
+#      nodes: 127.0.0.1:26379
+    cluster:
+      nodes: 127.0.0.1:8011,127.0.0.1:8012,127.0.0.1:8021,127.0.0.1:8022,127.0.0.1:8031,127.0.0.1:8032
+    lettuce:
+      pool:
+        max-idle: 50
+        min-idle: 10
+        max-active: 100
+        max-wait: 3000
+#    host: 127.0.0.1
+#    port: 6380
+
