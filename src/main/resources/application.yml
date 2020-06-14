@@ -3,6 +3,24 @@ server:
 
 
 spring:
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    virtual-host: /oa
+    username: cgq
+    password: 111111
+    connection-timeout: 5000
+    publisher-confirm-type: simple
+    publisher-returns: true
+    template:
+      mandatory: true #不可达消息不会删除,false时，不会回调returns且会删除消息
+    listener:
+      simple:
+        acknowledge-mode: auto #自动签收
+        concurrency: 5
+        max-concurrency: 10
+
+
   redis:
     database: 0
     timeout: 3000
@@ -22,3 +40,7 @@ spring:
 #    host: 127.0.0.1
 #    port: 6380
 
+rocketmq:
+  producer:
+    group: oa-follow-trans
+  name-server: 127.0.0.1:9876;127.0.0.1:9877

@@ -1,16 +1,14 @@
 package com.gz.conf;
 
 //import com.alibaba.druid.pool.DruidDataSource;
+
 import org.redisson.Redisson;
 import org.redisson.config.Config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.connection.RedisConnectionFactory;
-
-import javax.sql.DataSource;
 
 @Configuration
-public class Conf {
+public class RedisConf {
 
     @Bean
     public Redisson redisson(){
