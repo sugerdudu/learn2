@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+       xmlns:context="http://www.springframework.org/schema/context"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd
+http://dubbo.apache.org/schema/dubbo
+http://dubbo.apache.org/schema/dubbo/dubbo.xsd
+">
+    <dubbo:application name="oa-dubbo-test" />
+    <dubbo:registry address="multicast://224.1.1.1:3333" />
+    <dubbo:protocol name="dubbo" port="-1"/>
+    <dubbo:service interface="com.gz.dubbo.UserService" ref="userService" token="true"/>
+    <bean class="com.gz.dubbo.UserServiceImpl" id="userService"></bean>
+
+</beans>

@@ -1,5 +1,5 @@
 server:
-  port: 9192
+  port: 9193
 
 
 spring:
@@ -47,19 +47,10 @@ rocketmq:
 
 dubbo:
   application:
-    name: oa-dubbo-test
+    name: oa-dubbo-test2
+  consumer:
+    timeout: 2000
   registry:
     address: zookeeper://127.0.0.1
     port: 2181
-  provider:
-    group: oa-follow
-    version: 1
-    timeout: 5000
-    retries: 3
-    threads: 5
-    threadpool: fixed
-    token: true
-  protocol:
-    name: dubbo
-    port: -1
 
