@@ -15,6 +15,7 @@ public class DubboServer {
         ApplicationConfig applicationConfig = new ApplicationConfig("app-oa");
         ProtocolConfig protocolConfig = new ProtocolConfig();
         protocolConfig.setName("dubbo");
+        protocolConfig.setSerialization("fastjson");
         protocolConfig.setPort(-1);
 
 //        RegistryConfig registryConfig = new RegistryConfig("multicast://224.1.1.1:3333");

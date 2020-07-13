@@ -1,0 +1,68 @@
+server:
+  port: 9192
+
+#oastatus:
+#  str:
+#    default
+
+spring:
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    virtual-host: /oa
+    username: cgq
+    password: 111111
+    connection-timeout: 5000
+    publisher-confirm-type: simple
+    publisher-returns: true
+    template:
+      mandatory: true #不可达消息不会删除,false时，不会回调returns且会删除消息
+    listener:
+      simple:
+        acknowledge-mode: auto #自动签收
+        concurrency: 5
+        max-concurrency: 10
+
+
+  redis:
+    database: 0
+    timeout: 3000
+#    password: null
+    password: 121212
+#    sentinel:    #哨兵模式
+#      master: oamaster #主服务器所在集群名称
+#      nodes: 127.0.0.1:26379
+    cluster:
+      nodes: 127.0.0.1:8011,127.0.0.1:8012,127.0.0.1:8021,127.0.0.1:8022,127.0.0.1:8031,127.0.0.1:8032
+    lettuce:
+      pool:
+        max-idle: 50
+        min-idle: 10
+        max-active: 100
+        max-wait: 3000
+#    host: 127.0.0.1
+#    port: 6380
+
+rocketmq:
+  producer:
+    group: oa-follow-trans
+  name-server: 127.0.0.1:9876;127.0.0.1:9877
+
+dubbo:
+  application:
+    name: oa-dubbo-test
+  registry:
+    address: zookeeper://127.0.0.1
+    port: 2181
+  provider:
+    group: oa-follow
+    version: 1
+    timeout: 5000
+    retries: 3
+    threads: 5
+    threadpool: fixed
+    token: true
+  protocol:
+    name: dubbo
+    port: -1
+

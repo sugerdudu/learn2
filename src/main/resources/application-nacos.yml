@@ -1,0 +1,17 @@
+server:
+  port: 9194
+spring:
+  application:
+    name: oa-product
+  cloud:
+    nacos:
+      discovery:
+        namespace: e6073df8-b231-4c1d-bee1-3dc90c32ddad
+        server-addr: 127.0.0.1:8848
+        group: follow
+        cluster-name: cluster02
+
+
+ribbon:
+
+

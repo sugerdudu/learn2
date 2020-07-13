@@ -1,7 +1,13 @@
 server:
   port: 9193
 
+#oastatus:
+#  str:
+#    oastatus-nacos-client
+
 spring:
+  application:
+    name: oa-client
   cloud:
     nacos:
       discovery:
@@ -25,3 +31,12 @@ logging:
   level:
     com:
       gz: debug
+
+#ribbon:
+#  httpclient
+#    enabled: true
+#  MaxConnectionsPerHost: 500
+#  MaxTotalConnections: 2000
+#  ConnectTimeout: 60000
+
+#  ReadTimeout: 60000

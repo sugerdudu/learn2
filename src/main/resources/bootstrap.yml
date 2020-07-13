@@ -1,0 +1,25 @@
+#server:
+#  servlet:
+#    context-path: /oa-client
+spring:
+  application:
+    name: oa-client
+  profiles:
+    active: nacosdev
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848
+        namespace: e6073df8-b231-4c1d-bee1-3dc90c32ddad
+        group: follow
+        file-extension: yml
+        shared-configs:
+          - data-id: oa-common.yml
+            group: follow
+            refresh: true
+          - data-id: oa-common2.yml
+            group: follow
+            refresh: true
+
+
+
