@@ -9,19 +9,29 @@ spring:
         server-addr: 127.0.0.1:8848
         group: follow
         cluster-name: cluster01
+    sentinel:
+      transport:
+        dashboard: 127.0.0.1:8989
+
+      filter:
+        enabled: true
+
 
 ribbon:
-  ReadTimeout: 4000
-  MaxTotalConnections: 1000
-  MaxAutoRetries: 2
+  ReadTimeout: 10000
+  MaxTotalConnections: 10000
+  MaxAutoRetries: 1
   MaxAutoRetriesNextServer: 1
   http:
     client:
       enabled: true
   eager-load: #饥饿加载，解决第一次访问提供接口慢的
     clients: aa
-
+#  okhttp:
+#    enabled: true
 logging:
   level:
     com:
       gz: debug
+
+

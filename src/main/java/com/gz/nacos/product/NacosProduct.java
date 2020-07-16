@@ -5,6 +5,7 @@ import org.apache.dubbo.spring.boot.autoconfigure.DubboAutoConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-@SpringBootApplication(exclude = DubboAutoConfiguration.class)
+@SpringBootApplication(exclude ={ DubboAutoConfiguration.class, RedisAutoConfiguration.class})
 @EnableDiscoveryClient
 public class NacosProduct {
 
@@ -39,8 +40,20 @@ public class NacosProduct {
         public String echo(@PathVariable String string, @RequestHeader("token") String token) throws InterruptedException {
             System.out.println(string);
             System.out.println("token = " + token);
-            Thread.sleep(3000);
+            Thread.sleep(1000);
 
+            return string;
+        }
+
+        @GetMapping(value = "/echo2/{string}")
+        public String echo2(@PathVariable String string) throws InterruptedException {
+            Thread.sleep(100);
+            return string;
+        }
+
+        @GetMapping(value = "/echo3/{string}")
+        public String echo3(@PathVariable String string) throws InterruptedException {
+            Thread.sleep(100);
             return string;
         }
     }
