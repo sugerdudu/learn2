@@ -1,0 +1,30 @@
+server:
+  port: 8877
+spring:
+  application:
+    name: test-gateway
+  cloud:
+    nacos:
+      discovery:
+        namespace: e6073df8-b231-4c1d-bee1-3dc90c32ddad
+        server-addr: 127.0.0.1:8848
+        group: follow
+        cluster-name: cluster02
+    sentinel:
+      transport:
+        dashboard: 127.0.0.1:8989
+      filter:
+        enabled: true
+    gateway:
+      discovery:
+        locator:
+          enabled: false
+      enabled: true
+      routes:
+        - id: default
+          uri: lb://oa-product
+          predicates:
+            - Test=nametest111
+            - Path=/oa-test/**
+          filters:
+            - AddRequestParameter=aaa,123,bbb,444
