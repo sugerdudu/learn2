@@ -146,7 +146,24 @@ public class RunController {
     @GetMapping(value = "/run6/{string}")
     @SentinelResource(value = "addFollow", blockHandler = "runLK", blockHandlerClass = NacosClient.SentinelBlock.class)
     public String run6(@PathVariable String string) {
-        String val = followApi.echo(string + " - feign " + oaConf.getStr());
+        String val = followApi.echo3(string + " - feign " + oaConf.getStr());
+        System.out.println(val);
+        return val;
+    }
+
+    @GetMapping(value = "/run7/{string}")
+    @SentinelResource()
+    public String run7(@PathVariable String string) {
+//        Integer.parseInt("ff");
+        String val = followApi.echo3(string + " - feign " + oaConf.getStr());
+        System.out.println(val);
+        return val;
+    }
+
+    @GetMapping(value = "/run8/{string}")
+    public String run8(@PathVariable String string) {
+//        Integer.parseInt("ff");
+        String val = followApi.echo3(string + " - feign " + oaConf.getStr());
         System.out.println(val);
         return val;
     }

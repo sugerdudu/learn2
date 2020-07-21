@@ -11,10 +11,7 @@ import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.OkHttp3ClientHttpRequestFactory;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication(exclude ={ DubboAutoConfiguration.class, RedisAutoConfiguration.class})
@@ -53,8 +50,35 @@ public class NacosProduct {
 
         @GetMapping(value = "/echo3/{string}")
         public String echo3(@PathVariable String string) throws InterruptedException {
-            Thread.sleep(100);
+            System.out.println("echo3 " + string);
+            //Thread.sleep(100);
             return string;
+        }
+
+        @GetMapping(value = "/oa-test/echo3/{string}")
+        public String oaTestEcho3(@PathVariable String string) throws InterruptedException {
+            System.out.println("oaTestEcho3 " + string);
+            //Thread.sleep(100);
+            return string;
+        }
+
+        @GetMapping(value = "/oa-test/echo4/{string}")
+        public String oaTestEcho4(@PathVariable String string, @RequestParam("aaa") String aaa) throws InterruptedException {
+            String str = "oaTestEcho3 " + string + " aaa "+aaa;
+            System.out.println(str);
+            //Thread.sleep(100);
+            return str;
+        }
+
+        @GetMapping(value = "/oa-test/echo5/{string}")
+        public String oaTestEcho5(@PathVariable String string,
+                                  @RequestParam("aaa") String aaa,@RequestHeader("test-token") String testToken) throws InterruptedException {
+            String str = "oaTestEcho3 " + string + " aaa " + aaa
+                    + " ,  testToken:" + testToken;
+
+            System.out.println(str);
+            //Thread.sleep(100);
+            return str;
         }
     }
 }

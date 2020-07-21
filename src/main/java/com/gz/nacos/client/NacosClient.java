@@ -13,6 +13,7 @@ import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager;
 import com.alibaba.nacos.api.exception.NacosException;
 import com.alibaba.nacos.api.naming.pojo.Instance;
 import com.gz.cloud.feign.FollowApi;
+import com.gz.spi.IOASPI;
 import com.netflix.loadbalancer.IRule;
 import com.netflix.loadbalancer.RandomRule;
 import org.apache.dubbo.spring.boot.autoconfigure.DubboAutoConfiguration;
@@ -36,7 +37,9 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ServiceLoader;
 
 @SpringBootApplication(exclude ={ DubboAutoConfiguration.class, RedisAutoConfiguration.class})
 @EnableDiscoveryClient
@@ -46,7 +49,6 @@ public class NacosClient {
     public static void main(String[] args) {
         SpringApplication.run(NacosClient.class, args);
     }
-
 
     @LoadBalanced
 
@@ -76,6 +78,13 @@ public class NacosClient {
     @PostConstruct
     public void init(){
         System.out.println("init");
+
+        ServiceLoader<IOASPI> serviceLoader = ServiceLoader.load(IOASPI.class);
+        Iterator<IOASPI> iterator = serviceLoader.iterator();
+        while (iterator.hasNext()) {
+            iterator.next().parse();
+        }
+
         List<FlowRule> ruleList = new ArrayList<>();
         FlowRule flowRule = new FlowRule();
         flowRule.setGrade(RuleConstant.FLOW_GRADE_QPS);
