@@ -1,8 +1,7 @@
 package com.gz.dubbo.code;
 
-import com.gz.dubbo.MockService;
-import com.gz.dubbo.UserService;
-import com.gz.dubbo.UserServiceImpl;
+import com.boczj.CommonService.Service.RlmsInstallmentService;
+import com.gz.dubbo.*;
 import org.apache.dubbo.config.*;
 
 import java.io.IOException;
@@ -22,28 +21,52 @@ public class DubboServer {
         RegistryConfig registryConfig = new RegistryConfig("zookeeper://127.0.0.1:2181");
 //        RegistryConfig registryConfig = new RegistryConfig("redis://127.0.0.1:6380");
 
-        ServiceConfig<UserService> serviceConfig = new ServiceConfig<>();
-        serviceConfig.setInterface(UserService.class);
+//        ServiceConfig<UserService> serviceConfig = new ServiceConfig<>();
+//        serviceConfig.setInterface(UserService.class);
+//        serviceConfig.setToken(true);
+//
+//        serviceConfig.setTimeout(5000);
+//
+//        serviceConfig.setRef(new UserServiceImpl());
+//        //模块接口实现，在团队开发过程中，对方未完成实现也可调用接口
+//        //setMock(serviceConfig);
+//
+//        serviceConfig.setRegistry(registryConfig);
+//        serviceConfig.setProtocol(protocolConfig);
+//        serviceConfig.setGroup("oa-v2");
+//
+//        setLoadBalance(serviceConfig);
+//
+//        serviceConfig.setApplication(applicationConfig);
+//
+//        serviceConfig.export();
+
+        exportRims(registryConfig, protocolConfig, applicationConfig);
+
+        System.in.read();
+
+    }
+
+    private static void exportRims(RegistryConfig registryConfig,ProtocolConfig protocolConfig,ApplicationConfig applicationConfig){
+        ServiceConfig<RlmsInstallmentService> serviceConfig = new ServiceConfig<>();
+        serviceConfig.setInterface(RlmsInstallmentService.class);
         serviceConfig.setToken(true);
 
         serviceConfig.setTimeout(5000);
 
-        serviceConfig.setRef(new UserServiceImpl());
+        serviceConfig.setRef(new RlmsInstallmentServiceImpl());
         //模块接口实现，在团队开发过程中，对方未完成实现也可调用接口
         //setMock(serviceConfig);
 
         serviceConfig.setRegistry(registryConfig);
         serviceConfig.setProtocol(protocolConfig);
-        serviceConfig.setGroup("oa-v2");
+        serviceConfig.setGroup("oa-v3");
 
         setLoadBalance(serviceConfig);
 
         serviceConfig.setApplication(applicationConfig);
 
         serviceConfig.export();
-
-        System.in.read();
-
     }
 
     public static void setLoadBalance(ServiceConfig serviceConfig) {

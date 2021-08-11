@@ -8,16 +8,17 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Override
     public User getUser(Long id) {
+        System.out.println("-=-=-=--=-=-");
         System.out.println(ManagementFactory.getRuntimeMXBean().getName());
         User user = new User();
         user.setId(id);
         user.setName("suger - "+ ManagementFactory.getRuntimeMXBean().getName());
         user.setAge(33);
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Thread.sleep(2000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
         return user;
     }
 

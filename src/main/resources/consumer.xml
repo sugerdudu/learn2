@@ -1,17 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
        xmlns:context="http://www.springframework.org/schema/context"
-
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-       http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/context
-       https://www.springframework.org/schema/context/spring-context.xsd
-http://dubbo.apache.org/schema/dubbo
-http://dubbo.apache.org/schema/dubbo/dubbo.xsd
-">
-    <dubbo:application name="oa-dubbo-test" />
-    <dubbo:registry address="multicast://224.1.1.1:3333" />
-    <dubbo:reference interface="com.gz.dubbo.UserService" id="userService"/>
+         http://www.springframework.org/schema/beans/spring-beans.xsd
+         http://code.alibabatech.com/schema/dubbo
+         http://code.alibabatech.com/schema/dubbo/dubbo.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 引入属性文件 -->
+
+    <!-- 引用dubbo服务  消费者应用信息，用于计算依赖关系 -->
+    <dubbo:application name="Tps-app" environment="develop" />
+    <!--    environment="${busi.dubbo.env}"-->
+    <!-- 使用zookeeper广播注册中心暴露服务地址   配置protocol="zookeeper"   地址就直接不用 zookpeer://    否则 就要配置全地址 zookpeer://192.168.1.104:2181  -->
+    <!--    <dubbo:registry protocol="zookeeper" address="22.208.119.191:2181"/>-->
+    <!--    <dubbo:registry protocol="zookeeper" address="${dubbo.registry.address}"/>-->
+    <dubbo:registry protocol="zookeeper" address="127.0.0.1:2181"/>
+
+    <dubbo:consumer timeout="300000" check="false"/>
+    <dubbo:reference interface="com.gz.dubbo.UserService" id="userService2"/>
+
+    <dubbo:reference interface="com.boczj.CommonService.Service.RlmsInstallmentService" id="rlmsInstallmentService2" check="false" version="3.0" />
 </beans>

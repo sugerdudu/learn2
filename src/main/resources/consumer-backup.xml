@@ -11,20 +11,15 @@
 http://dubbo.apache.org/schema/dubbo
 http://dubbo.apache.org/schema/dubbo/dubbo.xsd
 ">
-<!--    <dubbo:application name="oa-dubbo-test" />-->
-    <dubbo:application name="Tps-app" environment="develop">
-        <dubbo:parameter key="qos.enable" value="true"/>
-        <dubbo:parameter key="qos.accept.foreign.ip" value="false"/>
-        <dubbo:parameter key="qos.port" value="33333"/>
-    </dubbo:application>
-
+    <dubbo:application name="Tps-app" environment="develop" />
+<!--    <dubbo:application name="oa-dubbo-test" environment="" />-->
 <!--    <dubbo:registry address="multicast://224.1.1.1:3333" />-->
-    <dubbo:registry protocol="zookeeper" address="127.0.0.1:2181" />
-<!--    <dubbo:protocol name="dubbo" port="20892"/>-->
-    <dubbo:service interface="com.gz.dubbo.UserService" ref="userService2" />
-    <dubbo:service interface="com.boczj.CommonService.Service.RlmsInstallmentService" ref="rlmsInstallmentService2" version="3.0" />
 
-    <bean class="com.gz.dubbo.UserServiceImpl" id="userService2"></bean>
-    <bean class="com.gz.dubbo.RlmsInstallmentServiceImpl" id="rlmsInstallmentService2"></bean>
-    
+    <dubbo:registry protocol="zookeeper" address="127.0.0.1:2181" />
+    <dubbo:reference interface="com.gz.dubbo.UserService" id="userService2"/>
+
+    <dubbo:consumer timeout="300000" check="false"/>
+
+
+    <dubbo:reference interface="com.boczj.CommonService.Service.RlmsInstallmentService" id="rlmsInstallmentService2" check="false" version="3.0"/>
 </beans>
