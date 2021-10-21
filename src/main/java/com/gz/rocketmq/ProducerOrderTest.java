@@ -19,14 +19,15 @@ import java.util.Random;
  */
 public class ProducerOrderTest {
     public static void main(String[] args) throws MQClientException, UnsupportedEncodingException, RemotingException, InterruptedException, MQBrokerException {
-        DefaultMQProducer producer = new DefaultMQProducer("oa-group");
-        producer.setNamesrvAddr("127.0.0.1:9877");
+        DefaultMQProducer producer = new DefaultMQProducer("oa-group2");
+        producer.setNamesrvAddr("127.0.0.1:9876");
+        producer.setDefaultTopicQueueNums(8);
 //        producer.setSendMsgTimeout(10000);
         producer.start();
 
         for (int i = 0; i < 100; i++) {
             String body = "hello oa follow " +i;
-            Message msg = new Message("follow-order", "no_handler"
+            Message msg = new Message("follow-order2", "no_handler1"
                     , "tag", ("hello oa follow " +i).getBytes(RemotingHelper.DEFAULT_CHARSET));
             SendResult sendResult = producer.send(msg, new MessageQueueSelector() {
                 @Override
@@ -42,7 +43,13 @@ public class ProducerOrderTest {
             //Thread.sleep(100);
         }
 
+
         producer.shutdown();
+
+
+        synchronized (ProducerTest.class) {
+            ProducerTest.class.wait();
+        }
 
     }
 }

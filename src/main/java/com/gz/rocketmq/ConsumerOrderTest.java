@@ -13,12 +13,13 @@ import java.util.List;
  * 有序消费
  */
 public class ConsumerOrderTest {
-    public static void main(String[] args) throws MQClientException {
-        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("oa-group");
-        consumer.setNamesrvAddr("127.0.0.1:9876;127.0.0.1:9877");
+    public static void main(String[] args) throws MQClientException, InterruptedException {
+        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("oa-group2");
+//        consumer.setNamesrvAddr("127.0.0.1:9876;127.0.0.1:9877");
+        consumer.setNamesrvAddr("127.0.0.1:9876");
 //        consumer.setMessageModel(MessageModel.BROADCASTING);
         String ex = "*";
-        consumer.subscribe("follow-order", ex);
+        consumer.subscribe("follow-order2", ex);
         System.out.println(ex);
         consumer.registerMessageListener(new MessageListenerConcurrently() {
             @Override
@@ -35,7 +36,9 @@ public class ConsumerOrderTest {
 
         consumer.start();
 
-
+        synchronized (ConsumerOrderTest.class) {
+            ConsumerOrderTest.class.wait();
+        }
 //        Message msg = new Message("follow", "no_handler"
 //                , "tag", "hello oa follow".getBytes(RemotingHelper.DEFAULT_CHARSET));
 //        SendResult sendResult = producer.send(msg);

@@ -14,9 +14,10 @@ import org.apache.rocketmq.remoting.common.RemotingHelper;
 import java.util.List;
 
 public class ConsumerTest {
-    public static void main(String[] args) throws MQClientException {
+    public static void main(String[] args) throws MQClientException, InterruptedException {
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("oa-group");
-        consumer.setNamesrvAddr("127.0.0.1:9876;127.0.0.1:9877");
+//        consumer.setNamesrvAddr("127.0.0.1:9876;127.0.0.1:9877");
+        consumer.setNamesrvAddr("127.0.0.1:9876");
 //        consumer.setMessageModel(MessageModel.BROADCASTING);
         String ex = "*";
         consumer.subscribe("follow", ex);
@@ -37,7 +38,9 @@ public class ConsumerTest {
 
         consumer.start();
 
-
+        synchronized (ConsumerTest.class) {
+            ConsumerTest.class.wait();
+        }
 //        Message msg = new Message("follow", "no_handler"
 //                , "tag", "hello oa follow".getBytes(RemotingHelper.DEFAULT_CHARSET));
 //        SendResult sendResult = producer.send(msg);

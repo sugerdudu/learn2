@@ -16,7 +16,7 @@ import java.util.List;
 public class ProducerTest {
     public static void main(String[] args) throws MQClientException, UnsupportedEncodingException, RemotingException, InterruptedException, MQBrokerException {
         DefaultMQProducer producer = new DefaultMQProducer("oa-group");
-        producer.setNamesrvAddr("127.0.0.1:9877");
+        producer.setNamesrvAddr("127.0.0.1:9876");
 //        producer.setSendMsgTimeout(10000);
         producer.start();
 
