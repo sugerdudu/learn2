@@ -10,6 +10,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>canel-test</module>
+        <module>mongodb-test</module>
     </modules>
 
     <repositories>
